@@ -1,0 +1,38 @@
+/* Search bar CSS */
+
+#sort-bar {
+    padding: 1%;
+    background-color: lightgray;
+}
+
+/* Postings CSS */
+
+#post-container {
+    padding: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.hide {
+    display: none;
+}
+
+#post-container .post {
+    padding: 1%;
+    margin-bottom: 1%;
+    width: 22%;
+    border: solid black 2px
+}
+
+@media only screen and (max-width: 1280px) {
+    #post-container .post {
+        width: 30%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #post-container .post {
+        width: 46%;
+    }
+}

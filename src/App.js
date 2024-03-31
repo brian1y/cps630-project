@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from './components/Home';
+import Navbar from './components/Navbar';
+import PostAd from './components/PostAd';
+import PostListing from './components/PostListing';
+import './css/Home.css'
+
+// To run: 'npm install' on README.md directory
+//         'npm start'
+// 
+// Backend: 'node src\server.js'
+//
+// DB name: 'projectDB' & collection name: 'posts'
+
+
+// TODO: CSS & responsive designs
+// TODO: Handle state passing between components
+// i.e, logins & user states
+// TODO: Admin dashboard
+// TODO: Messaging system
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/post-ad' element={<PostAd />} />
+          <Route path='/listing' element={<PostListing />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

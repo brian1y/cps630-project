@@ -1,0 +1,24 @@
+#set-type {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#ad-form {
+    display: block;
+    margin: auto;
+    width: 95vw;
+}
+
+textarea {
+    width: 95vw;
+    max-width: 95vw;
+    height: 25vh;
+    max-height: 30vh;
+}
+
+#submit {
+    display: block;
+    padding: 1%;
+    margin-left: 1px;
+    margin-top: 12px;
+}
