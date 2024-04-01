@@ -3,7 +3,8 @@ import Home from './components/Home';
 import Navbar from './components/Navbar';
 import PostAd from './components/PostAd';
 import PostListing from './components/PostListing';
-import './css/Home.css'
+import AdminPage from './components/AdminPage';
+import './css/Home.css';
 
 // To run: 'npm install' on README.md directory
 //         'npm start'
@@ -28,6 +29,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/post-ad' element={<PostAd />} />
           <Route path='/listing' element={<PostListing />} />
+          <Route path='/admin' element={<AdminPage />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3001;
 mongoose.connect('mongodb://localhost:27017/projectDB').
     catch(error => console.error(error));
 
-// TODO: add price & location
+// TODO: add price, location, & user
 const postSchema = new mongoose.Schema({
     title: String,
     desc: String,
@@ -41,7 +41,7 @@ app.post('/api/get-posts', async (req, res) => {
 })
 
 // Creating
-app.post('/api/create-posts', async (req, res) => {
+app.post('/api/create-post', async (req, res) => {
     try {
         const { title, desc, category } = req.body;
         const regex = /^\s{1,}$/;
@@ -57,6 +57,29 @@ app.post('/api/create-posts', async (req, res) => {
         else {
             const newDoc = await Post.create({title: title, desc: desc, category: category});
             res.status(201).json(newDoc);
+        }
+    }
+    catch (err) {
+        res.status(500).send(err);
+    }
+})
+
+// Deleting
+app.post('/api/delete-post', async (req, res) => {
+    try {
+        const id = req.body._id;
+        // Debugging
+        console.log(id);
+
+        if (await Post.findById(id)) {
+            await Post.deleteOne({ _id: id });
+
+            // Debugging
+            console.log(await Post.findById(id))
+            return res.status(200).json({body: 'Post deleted.'});
+        }
+        else {
+            return res.status(400).json({error: 'Post not found.'});
         }
     }
     catch (err) {

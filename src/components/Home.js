@@ -1,8 +1,5 @@
-import Navbar from "./Navbar";
-
 function Home() {
-
-    // Check if logged in
+    // TODO: Check if logged in
 
     // Default landing page for non logged in users
     return (
@@ -16,6 +13,9 @@ function Home() {
                 </li>
                 <li>
                     <a href='/listing'>Post Listing</a>
+                </li>
+                <li>
+                    <a href='/admin'>Admin Page</a>
                 </li>
             </ul>
         </div>

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import '../css/PostListing.css'
+import React, { useState } from 'react';
+import '../css/PostListing.css';
 
 function PostListing() {
     const [posts, setPosts] = useState('')
@@ -71,7 +71,7 @@ function PostListing() {
             <div id='post-container'>
                 {/* Map DB contents */}
                 {posts.map((post) => (
-                    <div className={`${post.category} post`} key={post.id}>
+                    <div className={`${post.category} post`} key={post._id}>
                         <h3>
                             {post.title}
                         </h3>

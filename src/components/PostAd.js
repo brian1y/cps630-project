@@ -4,6 +4,7 @@ import '../css/PostAd.css'
 function PostAd() {
     // TODO: Add login check
     // TODO: Add price & location
+    // TODO: Append user to post submission
     
     // States for user inputs
     const [title, setTitle] = useState('');
@@ -18,7 +19,7 @@ function PostAd() {
         setCategory('');
 
         // Send newPost to server
-        fetch('http://localhost:3001/api/create-posts', {
+        fetch('http://localhost:3001/api/create-post', {
             method: 'POST',
             headers: {
                 'Content-type': "application/json"
