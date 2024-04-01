@@ -1,10 +1,10 @@
-function Home() {
+function Home ({ user }) {
     // TODO: Check if logged in
 
     // Default landing page for non logged in users
     return (
-        <div id='landing'>
-            Hello User!
+        <main id='landing'>
+            {user ? <p id='welcome-message'>Hello {user}!</p> : ''}
 
             {/* Debugging stuff; to be removed */}
             <ul>
@@ -18,8 +18,13 @@ function Home() {
                     <a href='/admin'>Admin Page</a>
                 </li>
             </ul>
-        </div>
+        </main>
     );
 }
+
+// Debugging: to be removed
+Home.defaultProps = {
+    user: 'User',
+};
 
 export default Home;

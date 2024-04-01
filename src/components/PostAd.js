@@ -53,11 +53,11 @@ function PostAd() {
                 <form onSubmit={handleSubmit}>
                     <label>
                         <p>Title</p>
-                        <input type='text' id='title' value={title} onChange={(e) => setTitle(e.target.value)} required />
+                        <input type='text' id='title' autoComplete='off' value={title} onChange={(e) => setTitle(e.target.value)} required />
                     </label>
                     <label>
                         <p>Description</p>
-                        <textarea required  id='desc' value={desc} onChange={(e) => setDesc(e.target.value)} />
+                        <textarea id='desc' value={desc} onChange={(e) => setDesc(e.target.value)} required />
                     </label>
                     
                     <fieldset id='set-type'>

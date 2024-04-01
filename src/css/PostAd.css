@@ -1,3 +1,11 @@
+#post-page {
+    min-height: 90vh;
+}
+
+#post-page h2 {
+    padding-left: 8px;
+}
+
 #set-type {
     display: flex;
     justify-content: space-evenly;
@@ -6,14 +14,21 @@
 #ad-form {
     display: block;
     margin: auto;
-    width: 95vw;
+    width: 90vw;
+}
+
+input#title {
+    font-size: larger;
 }
 
 textarea {
+    resize: vertical;
     width: 95vw;
-    max-width: 95vw;
+    max-width: 90vw;
     height: 25vh;
+    min-height: 32px;
     max-height: 30vh;
+    font-size: large;
 }
 
 #submit {
@@ -21,4 +36,5 @@ textarea {
     padding: 1%;
     margin-left: 1px;
     margin-top: 12px;
+    cursor: pointer;
 }

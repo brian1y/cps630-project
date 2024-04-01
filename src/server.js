@@ -23,15 +23,21 @@ app.use(cors());
 // Querying
 app.post('/api/get-posts', async (req, res) => {
     try {
-        // Debugging
-        console.log(req.body);
+        // console.log(req.body);
+        const { category } = req.body;
+        let query = req.body.query;
+        const regex = /^\s{1,}$/;
 
-        if (req.body.category == 'all') {
-            const posts = await Post.find({}); 
+        // Ignore empty space searches
+        query.match(regex) ? query = '' : query;
+
+        // Match via regex & case insensitive search
+        if (category == 'all') {
+            const posts = await Post.find({ $or: [{ title: { $regex: '.*' + query + '.*', $options: 'i' } }, { desc: { $regex: '.*' + query + '.*', $options: 'i' } }] });
             res.json(posts);
         }
         else {
-            const posts = await Post.find({ category: req.body.category })
+            const posts = await Post.find({ $or: [{ title: { $regex: '.*' + query + '.*', $options: 'i' } }, { desc: { $regex: '.*' + query + '.*', $options: 'i' } }], category: category });
             res.json(posts);
         }
     }
@@ -48,14 +54,14 @@ app.post('/api/create-post', async (req, res) => {
 
         // Prevent empty posts
         if (!title || !desc) {
-            return res.status(400).json({error: 'Title and description cannot be empty.'});
+            return res.status(400).json({ error: 'Title and description cannot be empty.' });
         }
         else if (title.match(regex) || desc.match(regex)) {
-            return res.status(400).json({error: 'Title and description cannot be empty.'});
+            return res.status(400).json({ error: 'Title and description cannot be empty.' });
         }
         // Create post
         else {
-            const newDoc = await Post.create({title: title, desc: desc, category: category});
+            const newDoc = await Post.create({ title: title, desc: desc, category: category });
             res.status(201).json(newDoc);
         }
     }
@@ -68,18 +74,16 @@ app.post('/api/create-post', async (req, res) => {
 app.post('/api/delete-post', async (req, res) => {
     try {
         const id = req.body._id;
-        // Debugging
-        console.log(id);
+        // console.log(id);
 
         if (await Post.findById(id)) {
             await Post.deleteOne({ _id: id });
 
-            // Debugging
-            console.log(await Post.findById(id))
-            return res.status(200).json({body: 'Post deleted.'});
+            // console.log(await Post.findById(id))
+            return res.status(200).json({ body: 'Post deleted.' });
         }
         else {
-            return res.status(400).json({error: 'Post not found.'});
+            return res.status(400).json({ error: 'Post not found.' });
         }
     }
     catch (err) {
