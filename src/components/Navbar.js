@@ -1,7 +1,16 @@
 import '../css/Navbar.css'
+import { Link } from 'react-router-dom';
+import { useLogout } from '../hooks/useLogout';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 function Navbar() {
-    
+    const { logout } = useLogout()
+    const { user } = useAuthContext()
+
+    const handleClick = () => {
+        logout()
+    }
+
     // TODO: Add login check
 
     return (
@@ -9,9 +18,17 @@ function Navbar() {
             <div>
                 <a href='/'>SiteName</a>
             </div>
-            <div>
-                Login
-            </div>
+            {user && (
+                <div>
+                    <span>{user.username}</span>
+                    <button onClick={handleClick}>Log out</button>
+                </div>
+            )}
+            {!user && (
+                <div>
+                    <a href='/login'>Login/Signup</a>
+                </div>
+            )}
         </div>
     );
 }

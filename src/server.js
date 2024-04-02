@@ -87,6 +87,11 @@ app.post('/api/delete-post', async (req, res) => {
     }
 })
 
+const userRoutes = require('./routes/userRoutes')
+
+// user info routes
+app.use('/api/user', userRoutes)
+
 // Listen to port & feedback for server running
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

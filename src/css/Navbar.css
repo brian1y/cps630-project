@@ -10,3 +10,20 @@
 #navbar a{
     text-decoration: none;
 }
+
+#navbar button{
+    height: 5vh;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    color: #fff;
+    background: rgb(22, 124, 255);
+}
+
+#navbar button:hover{
+    border: 2px solid white;
+}
+
+span {
+    color: #fff;
+}
