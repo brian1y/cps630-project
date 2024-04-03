@@ -17,6 +17,9 @@ function Home ({ user }) {
                 <li>
                     <a href='/admin'>Admin Page</a>
                 </li>
+                <li>
+                    <a href='/communications'>Communications</a>
+                </li>
             </ul>
         </main>
     );
