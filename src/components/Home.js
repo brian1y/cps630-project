@@ -8,6 +8,7 @@ function Home() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
+    // Login check
     useEffect(() => {
         if (user) {
             if (!isLoading) {
@@ -19,8 +20,10 @@ function Home() {
         }
     }, [user, isLoading])
 
+    // Displays loading page, if loading
     isLoading && <Loading />;
 
+    // Generates render for logged in users
     function loggedInView() {
         return (
             <>
@@ -52,6 +55,7 @@ function Home() {
         );
     }
 
+    // Generates render for non logged in users
     function guestView() {
         return (
             <>
@@ -66,6 +70,7 @@ function Home() {
 
     return (
         <main id='landing'>
+            {/* Changes render depending on login state (user included in check as a fail-safe) */}
             {isLoggedIn && user ? loggedInView() : guestView()}
         </main>
     );

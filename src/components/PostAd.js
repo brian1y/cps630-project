@@ -18,6 +18,7 @@ function PostAd() {
 
     const redirect = new useNavigate();
 
+    // Login check
     useEffect(() => {
         if (!user) {
             if (!isLoading) {
