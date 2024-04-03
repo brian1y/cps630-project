@@ -46,7 +46,7 @@ app.post('/api/get-posts', async (req, res) => {
     }
 })
 
-// Creating
+// Creating post
 app.post('/api/create-post', async (req, res) => {
     try {
         const { title, desc, category } = req.body;
