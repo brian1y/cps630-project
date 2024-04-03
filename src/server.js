@@ -27,7 +27,7 @@ app.post('/api/get-posts', async (req, res) => {
         const { category } = req.body;
         let query = req.body.query;
         const regex = /^\s{1,}$/;
-        const msg = ?!red|green|blue;
+        const msg = ?!message;
 
         // Ignore empty space searches
         query.match(regex) ? query = '' : query;
