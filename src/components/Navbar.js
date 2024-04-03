@@ -29,7 +29,7 @@ function Navbar() {
                     <a href='/login'>Login/Signup</a>
                 </div>
             )}
-        </div>
+        </header>
     );
 }
 
