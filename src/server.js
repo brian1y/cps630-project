@@ -27,13 +27,14 @@ app.post('/api/get-posts', async (req, res) => {
         const { category } = req.body;
         let query = req.body.query;
         const regex = /^\s{1,}$/;
+        const msg = ?!red|green|blue;
 
         // Ignore empty space searches
         query.match(regex) ? query = '' : query;
 
         // Match via regex & case insensitive search
         if (category == 'all') {
-            const posts = await Post.find({ $or: [{ title: { $regex: '.*' + query + '.*', $options: 'i' } }, { desc: { $regex: '.*' + query + '.*', $options: 'i' } }] });
+            const posts = await Post.find({ $or: [{ title: { $regex: '.*' + query + '.*', $options: 'i' } }, { desc: { $regex: '.*' + query + '.*', $options: 'i' } }], category: $msg });
             res.json(posts);
         }
         else {
