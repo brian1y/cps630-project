@@ -18,7 +18,10 @@ function Home ({ user }) {
                     <a href='/admin'>Admin Page</a>
                 </li>
                 <li>
-                    <a href='/communications'>Communications</a>
+                    <a href='/send-message'>Send Message</a>
+                </li>
+                <li>
+                    <a href='/inbox'>Inbox</a>
                 </li>
             </ul>
         </main>
