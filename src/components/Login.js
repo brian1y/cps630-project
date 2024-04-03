@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import '../css/LoginRegistration.css'
 import user_icon from '../assets/username.png'
@@ -7,13 +7,18 @@ import { useLogin } from '../hooks/useLogin';
 
 function Login() {
 
+    // Page title
+    useEffect(() => {
+        document.title = 'Login | SiteName';
+    }, []);
+
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const {login, isLoading, error} = useLogin()
+    const { login, isLoading, error } = useLogin()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         await login(username, password)
     }
 

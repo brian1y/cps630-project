@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import '../css/LoginRegistration.css'
 import user_icon from '../assets/username.png'
@@ -6,6 +6,11 @@ import pass_icon from '../assets/password.png'
 import { useSignup } from '../hooks/useSignup';
 
 function Registration() {
+
+    // Page title
+    useEffect(() => {
+        document.title = 'Sign Up | SiteName';
+    }, []);
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -17,8 +22,6 @@ function Registration() {
         await signup(username, password)
 
     }
-
-
 
     return (
         <div className="container">

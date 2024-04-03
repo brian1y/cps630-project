@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../css/PostListing.css';
 
 function PostListing({ isAdmin, handleDeletion }) {
+
+    // Page title
+    useEffect(() => {
+        document.title = 'Ad Listing | SiteName';
+    }, []);
+
     const [posts, setPosts] = useState('')
     const [textSearch, setTextSearch] = useState('')
     const [category, setCategory] = useState('all')
