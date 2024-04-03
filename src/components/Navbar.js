@@ -1,15 +1,15 @@
 import '../css/Navbar.css'
+import { Link } from 'react-router-dom';
+import { useLogout } from '../hooks/useLogout';
+import { useAuthContext } from '../hooks/useAuthContext';
 
-function CorrespondingDisplay({ user }) {
-    if (user) {
-        return <div>Dashboard</div>
-    }
-    else {
-        return <div>Login</div>
-    }
-}
+function Navbar() {
+    const { logout } = useLogout()
+    const { user } = useAuthContext()
 
-function Navbar({ user }) {
+    const handleClick = () => {
+        logout()
+    }
 
     // TODO: Add login check
 
@@ -18,8 +18,18 @@ function Navbar({ user }) {
             <div>
                 <a href='/'>SiteName</a>
             </div>
-            <CorrespondingDisplay user={user} />
-        </header>
+            {user && (
+                <div>
+                    <span>{user.username}</span>
+                    <button onClick={handleClick}>Log out</button>
+                </div>
+            )}
+            {!user && (
+                <div>
+                    <a href='/login'>Login/Signup</a>
+                </div>
+            )}
+        </div>
     );
 }
 

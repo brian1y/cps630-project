@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -6,6 +6,9 @@ import PostAd from './components/PostAd';
 import PostListing from './components/PostListing';
 import AdminPage from './components/AdminPage';
 import './css/Home.css';
+import Login from "./components/Login";
+import Registration from "./components/Registration";
+import { useAuthContext } from "./hooks/useAuthContext";
 
 // To run: 'npm install' on README.md directory
 //         'npm start'
@@ -22,20 +25,23 @@ import './css/Home.css';
 // TODO: Messaging system
 
 function App() {
-	return (
-		<>
-			<Navbar />
-			<BrowserRouter>
-				<Routes>
-					<Route path='/' element={<Home />} />
-					<Route path='/post-ad' element={<PostAd />} />
-					<Route path='/listing' element={<PostListing />} />
-					<Route path='/admin' element={<AdminPage />} />
-				</Routes>
-			</BrowserRouter>
-			<Footer />
-		</>
-	);
+  const { user } = useAuthContext()
+
+  return (
+    <>
+      <Navbar />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={user ? <Home /> : <Navigate to='/login' />} />
+          <Route path='/post-ad' element={<PostAd />} />
+          <Route path='/listing' element={<PostListing />} />
+          <Route path='/admin' element={<AdminPage />} />
+          <Route path='/login' element={user ? <Navigate to='/' /> : <Login />} />
+          <Route path='/registration' element={user ? <Navigate to='/' /> : <Registration />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
 }
 
 export default App;
