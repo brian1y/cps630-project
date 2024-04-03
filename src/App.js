@@ -36,6 +36,7 @@ function App() {
           <Route path='/post-ad' element={<PostAd />} />
           <Route path='/listing' element={<PostListing />} />
           <Route path='/admin' element={<AdminPage />} />
+          <Route path='/communications' element={<Communications />} />
           <Route path='/login' element={user ? <Navigate to='/' /> : <Login />} />
           <Route path='/registration' element={user ? <Navigate to='/' /> : <Registration />} />
         </Routes>
