@@ -118,6 +118,8 @@ function PostListing({ isAdmin, handleDeletion }) {
                             {post.title}
                         </h3>
                         <p>
+                            ${post.price}<br></br>
+                            Location: {post.location} <br></br>
                             {post.desc}
                         </p>
                     </article>        

@@ -17,7 +17,7 @@
     width: 90vw;
 }
 
-input#title {
+input#title, input#price, input#location {
     font-size: larger;
 }
 

@@ -8,13 +8,17 @@ function PostAd() {
     
     // States for user inputs
     const [title, setTitle] = useState('');
+    const [price, setPrice] = useState('');
+    const [location, setLocation] = useState('');
     const [desc, setDesc] = useState('');
     const [category, setCategory] = useState('');
 
     // Handle post submission
     const handleSubmit = (e) => {
-        const newPost = {id: Date.now(), title, desc, category};
+        const newPost = {id: Date.now(), title, desc, category, price, location};
         setTitle('');
+        setPrice('');
+        setLocation('');
         setDesc('');
         setCategory('');
 
@@ -54,6 +58,14 @@ function PostAd() {
                     <label>
                         <p>Title</p>
                         <input type='text' id='title' autoComplete='off' value={title} onChange={(e) => setTitle(e.target.value)} required />
+                    </label>
+                    <label>
+                        <p>Price</p>
+                        <input type='number' id='price' autoComplete='off' value={price} onChange={(e) => setPrice(e.target.value)} min='0' step='0.01' required />
+                    </label>
+                    <label>
+                        <p>Location</p>
+                        <input type='text' id='location' autoComplete='off' value={location} onChange={(e) => setLocation(e.target.value)} required />
                     </label>
                     <label>
                         <p>Description</p>

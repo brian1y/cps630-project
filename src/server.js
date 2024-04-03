@@ -12,7 +12,9 @@ const postSchema = new mongoose.Schema({
     title: String,
     desc: String,
     url: String,
-    category: String
+    category: String,
+    price: Number,
+    location: String
 });
 
 const Post = mongoose.model('Post', postSchema);
@@ -49,19 +51,19 @@ app.post('/api/get-posts', async (req, res) => {
 // Creating
 app.post('/api/create-post', async (req, res) => {
     try {
-        const { title, desc, category } = req.body;
+        const { title, desc, category, price, location } = req.body;
         const regex = /^\s{1,}$/;
 
         // Prevent empty posts
-        if (!title || !desc) {
-            return res.status(400).json({ error: 'Title and description cannot be empty.' });
+        if (!title || !desc || !location || !price) {
+            return res.status(400).json({ error: 'Title, description, price, or location cannot be empty.' });
         }
-        else if (title.match(regex) || desc.match(regex)) {
-            return res.status(400).json({ error: 'Title and description cannot be empty.' });
+        else if (title.match(regex) || desc.match(regex) || location.match(regex) || price.match(regex)) {
+            return res.status(400).json({ error: 'Title, description, price, or location cannot be empty.' });
         }
         // Create post
         else {
-            const newDoc = await Post.create({ title: title, desc: desc, category: category });
+            const newDoc = await Post.create({ title: title, desc: desc, category: category, price: price, location: location });
             res.status(201).json(newDoc);
         }
     }
