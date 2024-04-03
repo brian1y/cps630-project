@@ -1,3 +1,18 @@
+# Running Project Files
+
+In the same directory as the `README.md` file, execute the following commands:
+```
+npm install
+npm start
+```
+
+In another terminal, run the following commands for the backend:
+```
+node src\server.js
+```
+
+Database name: `projectDB`
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
