@@ -7,7 +7,8 @@ function SendMessage() {
   
     //Sends message
     const handleSubmit = (e) => {
-        const newMessage = {title, desc, category};
+        const url = JSON.parse(localStorage.getItem('user')).username
+        const newMessage = {title, desc, url};
         setTitle('');
         setDesc('');
 
