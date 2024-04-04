@@ -30,7 +30,7 @@ function Home ({ user }) {
 
 // Debugging: to be removed
 Home.defaultProps = {
-    user: 'User',
+    user: JSON.parse(localStorage.getItem('user')).username,
 };
 
 export default Home;
