@@ -1,8 +1,30 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useAuthContext';
 import PostListing from './PostListing';
 import '../css/PostListing.css';
 import '../css/Admin.css';
 
 function AdminPage() {
+
+    const { user } = useAuthContext();
+    const [isLoading, setIsLoading] = useState(true);
+
+    const redirect = new useNavigate();
+
+    // Login check
+    useEffect(() => {
+        if (!user) {
+            if (!isLoading) {
+                redirect('/login', { replace: true });
+            }
+            else {
+                setIsLoading(false);
+            }
+        }
+        // eslint-disable-next-line
+    }, [user, isLoading])
+
     // TODO: Check if admin
 
     /*
@@ -19,8 +41,8 @@ function AdminPage() {
             e.preventDefault();
             console.log(e);
             if (window.confirm("Do you really want to delete this post?")) {
-                const remove_id = {_id: id}
-                
+                const remove_id = { _id: id }
+
                 // Delete post
                 fetch('http://localhost:3001/api/delete-post', {
                     method: 'POST',
@@ -29,19 +51,19 @@ function AdminPage() {
                     },
                     body: JSON.stringify(remove_id)
                 })
-                        
-                // Server response
-                .then((resp) => {
-                    console.log(resp);
-                    if (resp.ok) {
-                        alert('Post deleted.');
-                        resp.json().then(data => console.log(data))
-                        window.location.reload();
-                    }
-                    else {
-                        resp.json().then(data => alert(data.error))
-                    }
-                })
+
+                    // Server response
+                    .then((resp) => {
+                        console.log(resp);
+                        if (resp.ok) {
+                            alert('Post deleted.');
+                            resp.json().then(data => console.log(data))
+                            window.location.reload();
+                        }
+                        else {
+                            resp.json().then(data => alert(data.error))
+                        }
+                    })
             }
         }
 
