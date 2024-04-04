@@ -1,5 +1,4 @@
 import '../css/Navbar.css'
-import { Link } from 'react-router-dom';
 import { useLogout } from '../hooks/useLogout';
 import { useAuthContext } from '../hooks/useAuthContext';
 
@@ -10,8 +9,6 @@ function Navbar() {
     const handleClick = () => {
         logout()
     }
-
-    // TODO: Add login check
 
     return (
         <header id='navbar'>
@@ -32,10 +29,5 @@ function Navbar() {
         </header>
     );
 }
-
-// Debugging: to be removed
-Navbar.defaultProps = {
-    user: 'User',
-};
 
 export default Navbar;
