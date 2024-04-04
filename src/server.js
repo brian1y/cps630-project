@@ -84,7 +84,7 @@ app.post('/api/create-post', async (req, res) => {
 // Create messsage
 app.post('/api/send-message', async (req, res) => {
     try {
-        const { title, desc, url } = req.body;
+        const { to, message, from } = req.body;
         const regex = /^\s{1,}$/;
 
         // Prevent empty messages
@@ -93,7 +93,7 @@ app.post('/api/send-message', async (req, res) => {
         }
         // Create message
         else {
-            const newDoc = await Post.create({ title: title, desc: desc, url: url, category: 'message' });
+            const newDoc = await Post.create({ title: to, desc: message, url: from, category: 'message' });
             res.status(201).json(newDoc);
         }
     }
