@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 
 function Inbox() {
     const user = JSON.parse(localStorage.getItem('user')).username
-    const [to, setTo] = usestate('')
-    const [message, setMessages] = useState('')
+    const [messages, setMessages] = useState('')
+    const [first, setFirst] = useState(true);
 
-    fetch('http://localhost:3001/api/get-messages', {
+    //Used to display messages on first load
+    const messagesOnload = () => {
+        const user = JSON.parse(localStorage.getItem('user')).username
+        setFirst(null);
+        
+        fetch('http://localhost:3001/api/get-messages', {
             method: 'POST',
             headers: {
                 'Content-type': "application/json"
@@ -13,6 +18,37 @@ function Inbox() {
             body: JSON.stringify(filter)
         })
         .then(res => res.json())
-        .then(posts => setPosts(posts))
+        .then(messages => setMessages(posts))
     }
+
+    //Query DB for messages on first load
+    if (first) {
+        return messagesOnload();
+    }
+
+    //Loading (?)
+    if (!messages) {
+        return (
+            <>
+                <section id='no-results'>
+                    <p>Loading...</p>
+                </section>
+            </>
+        )
+    }
+
+    // No posts
+    if (messages.length === 0) {
+        return (
+            <>
+                <section id='no-results'>
+                    <p>No messages found.</p>
+                </section>
+            </>
+        )
+    }
+
+    
 }
+
+export default Inbox;
