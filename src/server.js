@@ -20,7 +20,7 @@ const Post = mongoose.model('Post', postSchema);
 app.use(express.json());
 app.use(cors());
 
-// Querying
+// Querying for posts
 app.post('/api/get-posts', async (req, res) => {
     try {
         // console.log(req.body);
@@ -33,7 +33,7 @@ app.post('/api/get-posts', async (req, res) => {
 
         // Match via regex & case insensitive search
         if (category == 'all') {
-            const posts = await Post.find({ $or: [{ title: { $regex: '.*' + query + '.*', $options: 'i' } }, { desc: { $regex: '.*' + query + '.*', $options: 'i' } }] });
+            const posts = await Post.find({ $or: [{ title: { $regex: '.*' + query + '.*', $options: 'i' } }, { desc: { $regex: '.*' + query + '.*', $options: 'i' } }], category: { $ne: 'message' }});
             res.json(posts);
         }
         else {
@@ -46,7 +46,19 @@ app.post('/api/get-posts', async (req, res) => {
     }
 })
 
-// Creating
+// Querying for messages
+app.post('/api/get-messages', async (req, res) => {
+    try {
+        const { user } = req.body;
+        const posts = await Post.find({ title: user, category: 'message' });
+        res.json(posts);
+    }
+    catch (err) {
+        res.status(500).send(err);
+    }
+})
+
+// Creating post
 app.post('/api/create-post', async (req, res) => {
     try {
         const { title, desc, category } = req.body;
@@ -62,6 +74,27 @@ app.post('/api/create-post', async (req, res) => {
         // Create post
         else {
             const newDoc = await Post.create({ title: title, desc: desc, category: category });
+            res.status(201).json(newDoc);
+        }
+    }
+    catch (err) {
+        res.status(500).send(err);
+    }
+})
+
+// Create messsage
+app.post('/api/send-message', async (req, res) => {
+    try {
+        const { to, message, from } = req.body;
+        const regex = /^\s{1,}$/;
+
+        // Prevent empty messages
+        if (!to || !message || to.match(regex) || message.match(regex)) {
+            return res.status(400).json({ error: 'Must specify a message and its recipient.' });
+        }
+        // Create message
+        else {
+            const newDoc = await Post.create({ title: to, desc: message, url: from, category: 'message' });
             res.status(201).json(newDoc);
         }
     }

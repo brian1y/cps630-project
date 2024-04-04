@@ -5,6 +5,9 @@ import Footer from './components/Footer';
 import PostAd from './components/PostAd';
 import PostListing from './components/PostListing';
 import AdminPage from './components/AdminPage';
+import SendMessage from './components/SendMessage';
+import Inbox from './components/Inbox';
+import './css/Home.css';
 import Login from "./components/Login";
 import Registration from "./components/Registration";
 import { useAuthContext } from "./hooks/useAuthContext";
@@ -36,6 +39,8 @@ function App() {
           <Route path='/post-ad' element={<PostAd />} />
           <Route path='/listing' element={<PostListing />} />
           <Route path='/admin' element={<AdminPage />} />
+          <Route path='/send-message' element={<SendMessage />} />
+          <Route path='/inbox' element={<Inbox />} />
           <Route path='/login' element={user ? <Navigate to='/' /> : <Login />} />
           <Route path='/registration' element={user ? <Navigate to='/' /> : <Registration />} />
         </Routes>
