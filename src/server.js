@@ -93,7 +93,7 @@ app.post('/api/send-message', async (req, res) => {
         }
         // Create message
         else {
-            const newDoc = await Post.create({ title: title, desc: desc, category: 'message' });
+            const newDoc = await Post.create({ title: title, desc: desc, url: url, category: 'message' });
             res.status(201).json(newDoc);
         }
     }
