@@ -13,8 +13,12 @@ function PostAd() {
 
     // States for user inputs
     const [title, setTitle] = useState('');
+    const [price, setPrice] = useState('');
+    const [location, setLocation] = useState('');
     const [desc, setDesc] = useState('');
     const [category, setCategory] = useState('');
+    const [file, setFile] = useState();
+
 
     const redirect = new useNavigate();
 
@@ -28,37 +32,43 @@ function PostAd() {
                 setIsLoading(false);
             }
         }
-    // eslint-disable-next-line
+        // eslint-disable-next-line
     }, [user, isLoading])
-
 
     // Handle post submission
     const handleSubmit = (e) => {
-        const newPost = { id: Date.now(), title, desc, category };
-        setTitle('');
-        setDesc('');
-        setCategory('');
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('price', price);
+        formData.append('location', location);
+        formData.append('desc', desc);
+        formData.append('category', category);
+        formData.append('image', file);
 
-        // Send newPost to server
         fetch('http://localhost:3001/api/create-post', {
             method: 'POST',
-            headers: {
-                'Content-type': "application/json"
-            },
-            body: JSON.stringify(newPost)
+            body: formData
         })
-
-            // Server response
-            .then((resp) => {
-                console.log(resp);
-                if (resp.ok) {
-                    alert('Post submitted!');
-                    resp.json().then(data => console.log(data))
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
                 }
-                else {
-                    resp.json().then(data => alert(data.error))
-                }
+                throw new Error('Failed to submit ad');
             })
+            .then(data => {
+                console.log(data);
+                alert('Post submitted!');
+                setTitle('');
+                setPrice('');
+                setLocation('');
+                setDesc('');
+                setCategory('');
+                setFile(null);
+            })
+            .catch(error => {
+                console.log('Error:', error);
+                alert(error.message);
+            });
     };
 
     isLoading && <Loading />;
@@ -79,9 +89,21 @@ function PostAd() {
                         <input type='text' id='title' autoComplete='off' value={title} onChange={(e) => setTitle(e.target.value)} required />
                     </label>
                     <label>
+                        <p>Price</p>
+                        <input type='number' id='price' autoComplete='off' value={price} onChange={(e) => setPrice(e.target.value)} min='0' step='0.01' required />
+                    </label>
+                    <label>
+                        <p>Location</p>
+                        <input type='text' id='location' autoComplete='off' value={location} onChange={(e) => setLocation(e.target.value)} required />
+                    </label>
+                    <label>
                         <p>Description</p>
                         <textarea id='desc' value={desc} onChange={(e) => setDesc(e.target.value)} required />
                     </label>
+                    <label>
+                        <p>Image</p>
+                        <input type='file' name='image' accept='image/*' onChange={(e) => setFile(e.target.files[0])} required/>
+                    </label><br></br>
 
                     <fieldset id='set-type'>
                         <legend>

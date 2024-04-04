@@ -3,17 +3,34 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const app = express();
 const PORT = process.env.PORT || 3001;
+const multer = require('multer')
+const path = require('path')
+// define image storing format
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'src/images/')
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname))
+    }
+})
+
+const upload = multer({ storage: storage })
 
 mongoose.connect('mongodb://localhost:27017/projectDB').
     catch(error => console.error(error));
 
-// TODO: add price, location, & user
 const postSchema = new mongoose.Schema({
     title: String,
     desc: String,
     url: String,
-    category: String
+    category: String,
+    price: Number,
+    location: String,
+    imageName: String
 });
+
 
 const Post = mongoose.model('Post', postSchema);
 
@@ -33,7 +50,7 @@ app.post('/api/get-posts', async (req, res) => {
 
         // Match via regex & case insensitive search
         if (category == 'all') {
-            const posts = await Post.find({ $or: [{ title: { $regex: '.*' + query + '.*', $options: 'i' } }, { desc: { $regex: '.*' + query + '.*', $options: 'i' } }], category: { $ne: 'message' }});
+            const posts = await Post.find({ $or: [{ title: { $regex: '.*' + query + '.*', $options: 'i' } }, { desc: { $regex: '.*' + query + '.*', $options: 'i' } }], category: { $ne: 'message' } });
             res.json(posts);
         }
         else {
@@ -61,19 +78,21 @@ app.post('/api/get-messages', async (req, res) => {
 // Creating post
 app.post('/api/create-post', async (req, res) => {
     try {
-        const { title, desc, category } = req.body;
+        const { title, desc, category, price, location } = req.body;
+        const imageFile = req.file; // Access uploaded file details
+        const imageName = imageFile.filename;
         const regex = /^\s{1,}$/;
 
         // Prevent empty posts
-        if (!title || !desc) {
-            return res.status(400).json({ error: 'Title and description cannot be empty.' });
+        if (!title || !desc || !location || !price) {
+            return res.status(400).json({ error: 'Title, description, price, or location cannot be empty.' });
         }
-        else if (title.match(regex) || desc.match(regex)) {
-            return res.status(400).json({ error: 'Title and description cannot be empty.' });
+        else if (title.match(regex) || desc.match(regex) || location.match(regex) || price.match(regex)) {
+            return res.status(400).json({ error: 'Title, description, price, or location cannot be empty.' });
         }
         // Create post
         else {
-            const newDoc = await Post.create({ title: title, desc: desc, category: category });
+            const newDoc = await Post.create({ title: title, desc: desc, category: category, price: price, location: location, imageName: imageName });
             res.status(201).json(newDoc);
         }
     }
@@ -81,6 +100,7 @@ app.post('/api/create-post', async (req, res) => {
         res.status(500).send(err);
     }
 })
+
 
 // Create messsage
 app.post('/api/send-message', async (req, res) => {
