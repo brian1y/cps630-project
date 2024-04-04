@@ -18,7 +18,7 @@ function Inbox() {
             body: JSON.stringify(filter)
         })
         .then(res => res.json())
-        .then(messages => setMessages(posts))
+        .then(messages => setMessages(messages))
     }
 
     //Query DB for messages on first load
@@ -37,7 +37,7 @@ function Inbox() {
         )
     }
 
-    // No posts
+    //No messages
     if (messages.length === 0) {
         return (
             <>
@@ -48,7 +48,20 @@ function Inbox() {
         )
     }
 
-    
+    //Messages found
+    return (
+        <>
+            <section id='message-container'>
+                {/* Map DB contents */}
+                {messages.map((message) => (
+                    <article>
+                        <h3>From: {post.title}</h3>
+                        <p>{post.desc}</p>
+                    </article>        
+                ))}
+            </section>
+        </>
+    )
 }
 
 export default Inbox;
