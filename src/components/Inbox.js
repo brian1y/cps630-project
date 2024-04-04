@@ -53,7 +53,7 @@ function Inbox() {
         <>
             <section id='message-container'>
                 {messages.map((message) => (
-                    <div style="border:thin">
+                    <div border-style='double'>
                         <h3> To: {message.title} | From: {message.url}</h3>
                         <p>{message.desc}</p>
                     </div>        
