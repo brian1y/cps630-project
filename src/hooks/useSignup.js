@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
-import { redirect } from "react-router-dom";
 
 export const useSignup = () => {
     const [error, setError] = useState(null)
@@ -33,8 +32,6 @@ export const useSignup = () => {
             dispatch({ type: 'LOGIN', payload: json })
 
             setIsLoading(false)
-            // redirect to home page
-            redirect('http://localhost:3000/')
         }
     }
     return { signup, isLoading, error }
