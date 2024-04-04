@@ -15,7 +15,7 @@ function Inbox() {
             headers: {
                 'Content-type': "application/json"
             },
-            body: JSON.stringify(filter)
+            body: JSON.stringify(user)
         })
         .then(res => res.json())
         .then(messages => setMessages(messages))
