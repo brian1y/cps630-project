@@ -52,12 +52,11 @@ function Inbox() {
     return (
         <>
             <section id='message-container'>
-                {/* Map DB contents */}
                 {messages.map((message) => (
-                    <article>
+                    <div>
                         <h3>From: {post.title}</h3>
                         <p>{post.desc}</p>
-                    </article>        
+                    </div>        
                 ))}
             </section>
         </>
