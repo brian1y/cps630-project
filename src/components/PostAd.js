@@ -5,43 +5,50 @@ function PostAd() {
     // TODO: Add login check
     // TODO: Add price & location
     // TODO: Append user to post submission
-    
+
     // States for user inputs
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [location, setLocation] = useState('');
     const [desc, setDesc] = useState('');
     const [category, setCategory] = useState('');
+    const [file, setFile] = useState();
 
     // Handle post submission
     const handleSubmit = (e) => {
-        const newPost = {id: Date.now(), title, desc, category, price, location};
-        setTitle('');
-        setPrice('');
-        setLocation('');
-        setDesc('');
-        setCategory('');
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('price', price);
+        formData.append('location', location);
+        formData.append('desc', desc);
+        formData.append('category', category);
+        formData.append('image', file);
 
-        // Send newPost to server
         fetch('http://localhost:3001/api/create-post', {
             method: 'POST',
-            headers: {
-                'Content-type': "application/json"
-            },
-            body: JSON.stringify(newPost)
+            body: formData
         })
-
-        // Server response
-        .then((resp) => {
-            console.log(resp);
-            if (resp.ok) {
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Failed to submit ad');
+            })
+            .then(data => {
+                console.log(data);
                 alert('Post submitted!');
-                resp.json().then(data => console.log(data))
-            }
-            else {
-                resp.json().then(data => alert(data.error))
-            }
-        })
+                // Optionally, reset form fields
+                setTitle('');
+                setPrice('');
+                setLocation('');
+                setDesc('');
+                setCategory('');
+                setFile(null);
+            })
+            .catch(error => {
+                console.log('Error:', error);
+                alert(error.message);
+            });
     };
 
     return (
@@ -49,7 +56,7 @@ function PostAd() {
             <h2>
                 Create New Ad
             </h2>
-            <hr/>
+            <hr />
             <fieldset id='ad-form'>
                 <legend>
                     New Ad
@@ -71,21 +78,25 @@ function PostAd() {
                         <p>Description</p>
                         <textarea id='desc' value={desc} onChange={(e) => setDesc(e.target.value)} required />
                     </label>
-                    
+                    <label>
+                        <p>Image</p>
+                        <input type='file' name='image' accept='image/*' onChange={(e) => setFile(e.target.files[0])} required/>
+                    </label>
+
                     <fieldset id='set-type'>
                         <legend>
                             Category
                         </legend>
                         <label>
-                            <input type='radio' name='ad-type' value='wanted' onChange={(e) => setCategory(e.target.value)} required/>
+                            <input type='radio' name='ad-type' value='wanted' onChange={(e) => setCategory(e.target.value)} required />
                             Item Wanted
                         </label>
                         <label>
-                            <input type='radio' name='ad-type' value='sale' onChange={(e) => setCategory(e.target.value)}/>
+                            <input type='radio' name='ad-type' value='sale' onChange={(e) => setCategory(e.target.value)} />
                             Item for Sale
                         </label>
                         <label>
-                            <input type='radio' name='ad-type' value='service' onChange={(e) => setCategory(e.target.value)}/>
+                            <input type='radio' name='ad-type' value='service' onChange={(e) => setCategory(e.target.value)} />
                             Academic Service
                         </label>
                     </fieldset>
@@ -99,7 +110,7 @@ function PostAd() {
                     </label>
                     */ }
 
-                    <input id='submit' type='submit' value='Submit Ad'/>
+                    <input id='submit' type='submit' value='Submit Ad' />
                 </form>
             </fieldset>
         </div>

@@ -11,7 +11,7 @@ function Home ({ user }) {
             {/* Debugging stuff; to be removed */}
             <ul>
                 <li>
-                    <button onClick={() => navigate('/post-ad')}>Post Ad</button>
+                    <div onClick={() => navigate('/post-ad')}>Post Ad</div>
                 </li>
                 <li>
                     <div onClick={() => navigate('/listing')}>Post Listing</div>
