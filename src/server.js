@@ -81,6 +81,27 @@ app.post('/api/create-post', async (req, res) => {
     }
 })
 
+// Create messsage
+app.post('/api/send-message', async (req, res) => {
+    try {
+        const { title, desc, url } = req.body;
+        const regex = /^\s{1,}$/;
+
+        // Prevent empty messages
+        if (!title || !desc || title.match(regex) || desc.match(regex) {
+            return res.status(400).json({ error: 'Must specify a message and its recipient.' });
+        }
+        // Create message
+        else {
+            const newDoc = await Post.create({ title: title, desc: desc, category: 'message' });
+            res.status(201).json(newDoc);
+        }
+    }
+    catch (err) {
+        res.status(500).send(err);
+    }
+})
+
 // Deleting
 app.post('/api/delete-post', async (req, res) => {
     try {
