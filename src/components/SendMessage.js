@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 function SendMessage() {
     // States for message information
-    const [to, setTo] = usestate('')
-    const [message, setMessages] = useState('')
+    const [to, setTo] = useState('')
+    const [message, setMessage] = useState('')
   
     //Sends message
     const handleSubmit = (e) => {
