@@ -54,8 +54,8 @@ function Inbox() {
             <section id='message-container'>
                 {messages.map((message) => (
                     <div>
-                        <h3>From: {post.title}</h3>
-                        <p>{post.desc}</p>
+                        <h3>From: {message.title}</h3>
+                        <p>{message.desc}</p>
                     </div>        
                 ))}
             </section>
