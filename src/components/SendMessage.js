@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 
 function SendMessage() {
     // States for message information
-    const [title, setTitle] = useState('');
-    const [desc, setDesc] = useState('');
+    const [to, setTo] = usestate('')
+    const [message, setMessages] = useState('')
   
     //Sends message
     const handleSubmit = (e) => {
-        const url = JSON.parse(localStorage.getItem('user')).username
-        const newMessage = {title, desc, url};
-        setTitle('');
-        setDesc('');
+        const from = JSON.parse(localStorage.getItem('user')).username
+        const newMessage = {to, message, from};
+        setTo('');
+        setMessage('');
 
         // Send newPost to server
         fetch('http://localhost:3001/api/send-message', {
@@ -44,11 +44,11 @@ function SendMessage() {
                 <form onSubmit={handleSubmit}>
                     <label>
                         <p>To:</p>
-                        <input type='text' id='title' autoComplete='off' value={title} onChange={(e) => setTitle(e.target.value)} required />
+                        <input type='text' id='to' autoComplete='off' value={to} onChange={(e) => setTo(e.target.value)} required />
                     </label>
                     <label>
                         <p>Message:</p>
-                        <textarea id='desc' value={desc} onChange={(e) => setDesc(e.target.value)} required />
+                        <textarea id='message' value={message} onChange={(e) => setMessage(e.target.value)} required />
                     </label>
                     <input id='submit' type='submit' value='Send Message'/>
                 </form>
