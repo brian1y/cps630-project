@@ -7,7 +7,7 @@ function Inbox() {
 
     //Used to display messages on first load
     const messagesOnload = () => {
-        const user = JSON.parse(localStorage.getItem('user')).username
+        const filter = {user: user};
         setFirst(null);
         
         fetch('http://localhost:3001/api/get-messages', {
@@ -15,7 +15,7 @@ function Inbox() {
             headers: {
                 'Content-type': "application/json"
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(filter)
         })
         .then(res => res.json())
         .then(messages => setMessages(messages))
