@@ -76,7 +76,7 @@ app.post('/api/get-messages', async (req, res) => {
 })
 
 // Creating post
-app.post('/api/create-post', async (req, res) => {
+app.post('/api/create-post', upload.single('image'), async (req, res) => {
     try {
         const { title, desc, category, price, location } = req.body;
         const imageFile = req.file; // Access uploaded file details
