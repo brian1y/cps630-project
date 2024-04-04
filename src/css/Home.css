@@ -1,3 +1,52 @@
 #landing {
     min-height: 90vh;
 }
+
+#welcome-message span {
+    color: black;
+    font-weight: normal;
+}
+
+#user-page {
+    padding: clamp(12px, 1%, 24px);
+    display: grid;
+    height: 50vh;
+    grid-template-columns: clamp(256px, 40%, 512px) auto;
+    gap: clamp(12px, 1%, 24px);
+}
+
+
+
+#user-box {
+    display: flex;
+    padding: clamp(12px, 1%, 24px);
+    border: solid black 2px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#profile {
+    display: flex;
+    width: 90%;
+    max-width: 90%;
+    background-color: rgb(13, 81, 171);
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/1;
+}
+
+#profile p {
+    font-size: clamp(132px, 20vw, 356px);
+    font-weight: bolder;
+    color: white;
+    text-align: center;
+    user-select: none;
+}
+
+
+#content {
+    padding: clamp(12px, 1%, 24px);
+    border: solid black 2px;
+}
