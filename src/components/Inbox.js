@@ -1,32 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Loading from './Loading';
-import { useAuthContext } from '../hooks/useAuthContext';
+import React, { useState } from 'react';
 
 function Inbox() {
-    const { user } = useAuthContext();
+    const user = JSON.parse(localStorage.getItem('user')).username
     const [messages, setMessages] = useState('')
     const [first, setFirst] = useState(true);
-
-    const [isLoading, setIsLoading] = useState(true);
-
-    const redirect = new useNavigate();
-
-    // Login check
-    useEffect(() => {
-        if (!user) {
-            if (!isLoading) {
-                redirect('/login', { replace: true });
-            }
-            else {
-                setIsLoading(false);
-            }
-        }
-        // eslint-disable-next-line
-    }, [user, isLoading])
-
-    // Displays loading page, if loading
-    isLoading && <Loading />;
 
     //Used to display messages on first load
     const messagesOnload = () => {
