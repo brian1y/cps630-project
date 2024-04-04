@@ -46,6 +46,17 @@ app.post('/api/get-posts', async (req, res) => {
     }
 })
 
+// Querying for messages
+app.post('/api/get-messages', async (req, res) => {
+    try {
+        const user = req.body;
+        const posts = await Post.find({ category: 'message' });
+    }
+    catch (err) {
+        res.status(500).send(err);
+    }
+})
+
 // Creating post
 app.post('/api/create-post', async (req, res) => {
     try {
