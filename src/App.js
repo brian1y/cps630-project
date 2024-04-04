@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from './components/Home';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
 import PostAd from './components/PostAd';
 import PostListing from './components/PostListing';
 import AdminPage from './components/AdminPage';
@@ -33,9 +32,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={user ? <Home /> : <Navigate to='/login' />} />
-          <Route path='/post-ad' element={<PostAd />} />
-          <Route path='/listing' element={<PostListing />} />
-          <Route path='/admin' element={<AdminPage />} />
+          <Route path='/post-ad' element={user ? <PostAd /> : <Navigate to='/login' />} />
+          <Route path='/listing' element={user ? <PostListing /> : <Navigate to='/login' />} />
+          <Route path='/admin' element={user ? <AdminPage /> : <Navigate to='/login' />} />
           <Route path='/login' element={user ? <Navigate to='/' /> : <Login />} />
           <Route path='/registration' element={user ? <Navigate to='/' /> : <Registration />} />
         </Routes>

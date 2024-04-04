@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 function Home ({ user }) {
-    // TODO: Check if logged in
-
+    
+    const navigate = useNavigate();
+    
     // Default landing page for non logged in users
     return (
         <main id='landing'>
@@ -9,13 +11,13 @@ function Home ({ user }) {
             {/* Debugging stuff; to be removed */}
             <ul>
                 <li>
-                    <a href='/post-ad'>Post Ad</a>
+                    <button onClick={() => navigate('/post-ad')}>Post Ad</button>
                 </li>
                 <li>
-                    <a href='/listing'>Post Listing</a>
+                    <div onClick={() => navigate('/listing')}>Post Listing</div>
                 </li>
                 <li>
-                    <a href='/admin'>Admin Page</a>
+                    <div onClick={() => navigate('/admin')}>Admin Page</div>
                 </li>
             </ul>
         </main>

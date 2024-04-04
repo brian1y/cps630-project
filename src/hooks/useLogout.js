@@ -1,5 +1,4 @@
 import { useAuthContext } from "./useAuthContext"
-import { redirect } from "react-router-dom";
 
 export const useLogout = () => {
 
@@ -11,9 +10,6 @@ export const useLogout = () => {
 
         //dispatch logout
         dispatch({type: 'LOGOUT'})
-
-        // redirect to login page
-        redirect('http://localhost:3000/login')
 
     }
 
