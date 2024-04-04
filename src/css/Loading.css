@@ -1,0 +1,32 @@
+#loading {
+    display: flex;
+    min-height: 90vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#loading .icon {
+    width: 128px;
+    height: 128px;
+}
+
+#loading p {
+    font-size: 32px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    #loading .icon {
+        animation: spin infinite 3s linear;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
