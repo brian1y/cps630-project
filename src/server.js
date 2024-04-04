@@ -88,7 +88,7 @@ app.post('/api/send-message', async (req, res) => {
         const regex = /^\s{1,}$/;
 
         // Prevent empty messages
-        if (!title || !desc || title.match(regex) || desc.match(regex) {
+        if (!to || !message || to.match(regex) || message.match(regex)) {
             return res.status(400).json({ error: 'Must specify a message and its recipient.' });
         }
         // Create message
