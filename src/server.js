@@ -5,6 +5,8 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const multer = require('multer')
 const path = require('path')
+const validator = require('validator');
+
 // define image storing format
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -18,8 +20,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-mongoose.connect('mongodb://localhost:27017/projectDB').
-    catch(error => console.error(error));
+mongoose.connect('mongodb://localhost:27017/projectDB')
+    .catch(error => console.error(error));
 
 const postSchema = new mongoose.Schema({
     title: String,
@@ -45,6 +47,8 @@ app.post('/api/get-posts', async (req, res) => {
         let query = req.body.query;
         const regex = /^\s{1,}$/;
 
+        query = validator.blacklist(query, '\[\*,\\\]');
+
         // Ignore empty space searches
         query.match(regex) ? query = '' : query;
 
@@ -66,8 +70,9 @@ app.post('/api/get-posts', async (req, res) => {
 // Querying for messages
 app.post('/api/get-messages', async (req, res) => {
     try {
+        // console.log(req.body);
         const { user } = req.body;
-        const posts = await Post.find({ title: user, category: 'message' });
+        const posts = await Post.find({ title: user.username, category: 'message' });
         res.json(posts);
     }
     catch (err) {

@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useAuthContext';
+import '../css/PostListing.css';
 
 function Inbox() {
-    const user = JSON.parse(localStorage.getItem('user')).username
+    const { user } = useAuthContext();
     const [messages, setMessages] = useState('')
     const [first, setFirst] = useState(true);
 
     //Used to display messages on first load
     const messagesOnload = () => {
         const filter = { user: user };
-        setFirst(null);
 
         fetch('http://localhost:3001/api/get-messages', {
             method: 'POST',
@@ -21,10 +23,27 @@ function Inbox() {
             .then(messages => setMessages(messages))
     }
 
+    const redirect = new useNavigate();
+
     //Query DB for messages on first load
-    if (first) {
-        return messagesOnload();
-    }
+    useEffect(() => {
+        if (!user) {
+            if (!first) {
+                redirect('/login', { replace: true });
+            }
+            else {
+                setFirst(false);
+            }
+        }
+        else {
+            if (!first) {
+                return messagesOnload();
+            }
+            else {
+                setFirst(false);
+            }
+        }
+    }, [user, first])
 
     //Loading (?)
     if (!messages) {
