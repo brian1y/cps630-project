@@ -32,9 +32,10 @@
     padding: clamp(12px, 1%, 20px);
     min-height: 100vh;
     justify-content: center;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     grid-template-rows: repeat(1fr);
     gap: clamp(12px, 1%, 20px);
+    word-wrap: break-word;
 }
 
 #post-container .post {
@@ -60,7 +61,7 @@
     }
 
     #post-container {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: clamp(16px, 2%, 20px);
     }
 }
@@ -71,8 +72,8 @@
     }
 
     #post-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: clamp(16px, 2%, 20px);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: clamp(16px, 2vw, 20px);
     }
 }
 
