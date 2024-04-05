@@ -19,7 +19,6 @@ function PostAd() {
     const [category, setCategory] = useState('');
     const [file, setFile] = useState();
 
-
     const redirect = new useNavigate();
 
     // Login check
@@ -44,6 +43,7 @@ function PostAd() {
         formData.append('desc', desc);
         formData.append('category', category);
         formData.append('image', file);
+        formData.append('username', user.username);
 
         fetch('http://localhost:3001/api/create-post', {
             method: 'POST',
