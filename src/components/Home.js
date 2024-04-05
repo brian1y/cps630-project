@@ -65,7 +65,7 @@ function Home() {
     function guestView() {
         return (
             <>
-                <ul>
+                <ul className='shadowBox'>
                     <li>
                         <a href='/listing'>Post Listing</a>
                     </li>

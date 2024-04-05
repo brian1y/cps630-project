@@ -40,7 +40,7 @@
 #post-container .post {
     padding: clamp(12px, 1%, 20px);
     margin-bottom: 1%;
-    border: solid black 2px;
+    border: none;
 }
 
 #post-container .post:focus {
@@ -50,7 +50,7 @@
 #post-container img {
     margin-top: 4px;
     margin-bottom: 4px;
-    border: 2px solid black;
+    border: none;
     width: 100%;
 }
 
@@ -84,6 +84,27 @@
 #no-results p {
     margin-top: 5%;
     text-align: center;
+}
+
+.shadowBox {
+    padding: clamp(20px, 1%, 24px);
+    border: none;
+    background-color: #fff;
+    box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2)
+}
+
+.noShadowBox {
+    border: none;
+    background-color: #fff;
+}
+
+.backgroundGray {
+    background-color: #ececec9b;
+}
+
+.image {
+    background-color: #ececec9b;
+    box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2)
 }
 
 /* Old flexbox CSS */

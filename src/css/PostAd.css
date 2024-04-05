@@ -2,6 +2,7 @@
 
 #post-page {
     min-height: 90vh;
+    background-color: #ececec9b;
 }
 
 #post-page h2 {
@@ -39,4 +40,16 @@ textarea {
     margin-left: 1px;
     margin-top: 12px;
     cursor: pointer;
+}
+
+.shadowBox {
+    padding: clamp(20px, 1%, 24px);
+    border: none;
+    background-color: #fff;
+    box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2)
+}
+
+.noShadowBox {
+    border: none;
+    background-color: #fff;
 }

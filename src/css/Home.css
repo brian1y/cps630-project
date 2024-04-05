@@ -1,5 +1,6 @@
 #landing {
     min-height: 90vh;
+    background-color: #ececec9b;
 }
 
 #welcome-message span {
@@ -20,10 +21,12 @@
 #user-box {
     display: flex;
     padding: clamp(12px, 1%, 24px);
-    border: solid black 2px;
+    border: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #fff;
+    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.2)
 }
 
 #profile {
@@ -48,5 +51,20 @@
 
 #content {
     padding: clamp(12px, 1%, 24px);
-    border: solid black 2px;
+    border: none;
+    background-color: #fff;
+    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.2)
+}
+
+.shadowBox {
+    padding: clamp(20px, 1%, 24px);
+    border: none;
+    background-color: #fff;
+    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.2)
+}
+
+.noShadowBox {
+    padding: clamp(20px, 1%, 24px);
+    border: none;
+    background-color: #fff;
 }

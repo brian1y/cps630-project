@@ -99,10 +99,10 @@ function PostListing({ isAdmin, handleDeletion }) {
         <>
             {searchBar()}
 
-            <section id='post-container'>
+            <section id='post-container' className='backgroundGray'>
                 {/* Map DB contents */}
                 {posts.map((post) => (
-                    <article tabIndex={0} className={`${post.category} post`} key={post._id}>
+                    <article tabIndex={0} className={`${post.category} post shadowBox`} key={post._id}>
                         
                         {/* Checks if admin, then displays deletion option */}
                         {isAdmin 
@@ -120,7 +120,7 @@ function PostListing({ isAdmin, handleDeletion }) {
                         <p>
                             ${post.price}<br></br>
                             Location: {post.location}<br></br>
-                            <img src={require(`../images/${post.imageName}`)} alt='post-image' /><br></br>
+                            <img src={require(`../images/${post.imageName}`)} alt='post-image' className='image'/><br></br>
                             {post.desc}
                         </p>
                     </article>        

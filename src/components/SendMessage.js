@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loading from './Loading';
 import { useAuthContext } from '../hooks/useAuthContext';
+import '../css/SendMessage.css'
+
 
 function SendMessage() {
     // States for message information
@@ -60,11 +62,10 @@ function SendMessage() {
 
     return (
         <div id='post-page'>
-            <h2>
+            <h2 className='noShadowBox'>
                 Send Message
             </h2>
-            <hr />
-            <fieldset id='ad-form'>
+            <fieldset id='ad-form' className='shadowBox'>
                 <form onSubmit={handleSubmit}>
                     <label>
                         <p>To:</p>

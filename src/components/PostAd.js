@@ -75,14 +75,10 @@ function PostAd() {
 
     return (
         <div id='post-page'>
-            <h2>
+            <h2 className='noShadowBox'>
                 Create New Ad
             </h2>
-            <hr />
-            <fieldset id='ad-form'>
-                <legend>
-                    New Ad
-                </legend>
+            <fieldset id='ad-form' className='shadowBox'> 
                 <form onSubmit={handleSubmit}>
                     <label>
                         <p>Title</p>
@@ -135,6 +131,7 @@ function PostAd() {
                     <input id='submit' type='submit' value='Submit Ad' />
                 </form>
             </fieldset>
+            <br></br>
         </div>
     )
 }
