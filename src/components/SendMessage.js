@@ -34,9 +34,8 @@ function SendMessage() {
     //Sends message
     const handleSubmit = (e) => {
         const from = JSON.parse(localStorage.getItem('user')).username
-        const newMessage = { to, message, from };
-        setTo('');
-        setMessage('');
+        const timestamp = Date.now();
+        const newMessage = { to, message, from, timestamp };
 
         // Send newPost to server
         fetch('http://localhost:3001/api/send-message', {
@@ -48,16 +47,22 @@ function SendMessage() {
         })
 
             // Server response
-            .then((resp) => {
-                console.log(resp);
-                if (resp.ok) {
-                    alert('Message sent!');
-                    resp.json().then(data => console.log(data))
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
                 }
-                else {
-                    resp.json().then(data => alert(data.error))
-                }
+                throw new Error('Failed to send message');
             })
+            .then(data => {
+                console.log(data);
+                alert('Message sent!');
+                setTo('');
+                setMessage('');
+            })
+            .catch(error => {
+                console.log('Error:', error);
+                alert(error.message);
+            });
     };
 
     return (

@@ -26,7 +26,6 @@ mongoose.connect('mongodb://localhost:27017/projectDB')
 const postSchema = new mongoose.Schema({
     title: String,
     desc: String,
-    url: String,
     category: String,
     price: Number,
     location: String,
@@ -34,8 +33,15 @@ const postSchema = new mongoose.Schema({
     username: String
 });
 
+const messageSchema = new mongoose.Schema({
+    to: String,
+    message: String,
+    from: String,
+    timestamp: Number
+});
 
 const Post = mongoose.model('Post', postSchema);
+const Message = mongoose.model('Message', messageSchema);
 
 app.use(express.json());
 app.use(cors());
@@ -73,8 +79,8 @@ app.post('/api/get-messages', async (req, res) => {
     try {
         // console.log(req.body);
         const { user } = req.body;
-        const posts = await Post.find({ title: user.username, category: 'message' });
-        res.json(posts);
+        const messages = await Message.find({ to: user.username });
+        res.json(messages);
     }
     catch (err) {
         res.status(500).send(err);
@@ -110,7 +116,7 @@ app.post('/api/create-post', upload.single('image'), async (req, res) => {
 // Create messsage
 app.post('/api/send-message', async (req, res) => {
     try {
-        const { to, message, from } = req.body;
+        const { to, message, from, timestamp } = req.body;
         const regex = /^\s{1,}$/;
 
         // Prevent empty messages
@@ -119,7 +125,7 @@ app.post('/api/send-message', async (req, res) => {
         }
         // Create message
         else {
-            const newDoc = await Post.create({ title: to, desc: message, url: from, category: 'message' });
+            const newDoc = await Message.create({ to: to, message: message, from: from, timestamp: timestamp });
             res.status(201).json(newDoc);
         }
     }

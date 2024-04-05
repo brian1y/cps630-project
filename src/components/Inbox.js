@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
-import '../css/PostListing.css';
+import '../css/Inbox.css';
 
 function Inbox() {
     const { user } = useAuthContext();
@@ -21,6 +21,11 @@ function Inbox() {
         })
             .then(res => res.json())
             .then(messages => setMessages(messages))
+    }
+
+    function convertTimestamp(epoch) {
+        const time = new Date(epoch);
+        return time.toLocaleString("en-US");
     }
 
     const redirect = new useNavigate();
@@ -49,39 +54,47 @@ function Inbox() {
     if (!messages) {
         return (
             <>
+                <h2>Inbox</h2>
                 <section id='no-results'>
                     <p>Loading...</p>
                 </section>
             </>
         )
     }
+    else {
+        //No messages
+        if (messages.length === 0) {
+            return (
+                <>
+                    <h2>Inbox</h2>
+                    <section id='no-results'>
+                        <p>No messages found.</p>
+                    </section>
+                </>
+            )
+        }
 
-    //No messages
-    if (messages.length === 0) {
-        return (
-            <>
-                <section id='no-results'>
-                    <p>No messages found.</p>
-                </section>
-            </>
-        )
+
+
+        else {
+            //Messages found
+            return (
+                <>
+                    <h2>Inbox</h2>
+                    <section id='message-container' className='backgroundGray'>
+                        {messages.map((message) => (
+                            <div className='message shadowBox'>
+                                <h4>From: {message.from}</h4>
+                                <p className='time'>{convertTimestamp(message.timestamp)}</p>
+                                <hr></hr>
+                                <p className='message'>{message.message}</p>
+                            </div>
+                        ))}
+                    </section>
+                </>
+            )
+        }
     }
-
-    //Messages found
-    return (
-        <>
-            <section id='message-container'>
-                {messages.map((message) => (
-                    <div style={{ border: 'double' }}>
-                        <h4>To: {message.title}</h4>
-                        <h4>From: {message.url}</h4>
-                        <hr></hr>
-                        <p>{message.desc}</p>
-                    </div>
-                ))}
-            </section>
-        </>
-    )
 }
 
 export default Inbox;
