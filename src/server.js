@@ -74,6 +74,19 @@ app.post('/api/get-posts', async (req, res) => {
     }
 })
 
+// Querying for posts (user-specific)
+app.post('/api/get-posts-by-user', async (req, res) => {
+    try {
+        const user = req.body;
+
+        const posts = await Post.find({ username: user.username });
+        res.json(posts);
+    }
+    catch (err) {
+        res.status(500).send(err);
+    }
+})
+
 // Querying for messages
 app.post('/api/get-messages', async (req, res) => {
     try {

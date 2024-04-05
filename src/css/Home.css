@@ -11,7 +11,6 @@
 #user-page {
     padding: clamp(12px, 1%, 24px);
     display: grid;
-    height: 50vh;
     grid-template-columns: clamp(256px, 40%, 512px) auto;
     gap: clamp(12px, 1%, 24px);
 }
@@ -49,12 +48,24 @@
 }
 
 
+
 #content {
     padding: clamp(12px, 1%, 24px);
     border: none;
     background-color: #fff;
     box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.2)
 }
+
+
+
+#grid-2 {
+    grid-column: 1 / span 2;
+}
+
+#no-posts {
+    padding: clamp(20px, 1%, 24px);
+}
+
 
 .shadowBox {
     padding: clamp(20px, 1%, 24px);

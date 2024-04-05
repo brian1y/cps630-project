@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import '../css/PostListing.css';
+import MapPosts from './MapPosts';
 
-function PostListing({ isAdmin, handleDeletion }) {
+function PostListing({ canDelete = false }) {
     const [posts, setPosts] = useState('')
     const [textSearch, setTextSearch] = useState('')
     const [category, setCategory] = useState('all')
     const [first, setFirst] = useState(true);
-    
+
     // TODO: Additional filter options: price & location filters + text matching
-    
+
     // Displays search bar upon call
     function searchBar() {
         return (
@@ -21,7 +22,7 @@ function PostListing({ isAdmin, handleDeletion }) {
                         <option value='sale'>Items for Sale</option>
                         <option value='service'>Academic Service</option>
                     </select>
-                    <input type='submit' value='Search'/>
+                    <input type='submit' value='Search' />
                 </form>
             </section>
         )
@@ -29,9 +30,9 @@ function PostListing({ isAdmin, handleDeletion }) {
 
     // Handle filter
     const listingOnload = () => {
-        const filter = {category: category, query: ''};
+        const filter = { category: category, query: '' };
         setFirst(null);
-        
+
         // Fetch posts
         fetch('http://localhost:3001/api/get-posts', {
             method: 'POST',
@@ -40,15 +41,15 @@ function PostListing({ isAdmin, handleDeletion }) {
             },
             body: JSON.stringify(filter)
         })
-        .then(res => res.json())
-        .then(posts => setPosts(posts))
+            .then(res => res.json())
+            .then(posts => setPosts(posts))
     }
 
     // Handle filter
     const handleInput = (e) => {
         e.preventDefault();
-        const filter = {category: category, query: textSearch};
-        
+        const filter = { category: category, query: textSearch };
+
         // Fetch posts
         fetch('http://localhost:3001/api/get-posts', {
             method: 'POST',
@@ -57,8 +58,8 @@ function PostListing({ isAdmin, handleDeletion }) {
             },
             body: JSON.stringify(filter)
         })
-        .then(res => res.json())
-        .then(posts => setPosts(posts))
+            .then(res => res.json())
+            .then(posts => setPosts(posts))
     }
 
     // Query DB on first load
@@ -101,37 +102,10 @@ function PostListing({ isAdmin, handleDeletion }) {
 
             <section id='post-container' className='backgroundGray'>
                 {/* Map DB contents */}
-                {posts.map((post) => (
-                    <article tabIndex={0} className={`${post.category} post shadowBox`} key={post._id}>
-                        
-                        {/* Checks if admin, then displays deletion option */}
-                        {isAdmin 
-                        ? 
-                            <div className='delete-post'>
-                                <button type='button' onClick={(e) => handleDeletion(post._id, e)}>X</button>
-                            </div> 
-                        : 
-                            ''
-                        }
-    
-                        <h3>
-                            {post.title}
-                        </h3>
-                        <p>
-                            ${post.price}<br></br>
-                            Location: {post.location}<br></br>
-                            <img src={require(`../images/${post.imageName}`)} alt='post-image' className='image'/><br></br>
-                            {post.desc}
-                        </p>
-                    </article>        
-                ))}
+                <MapPosts canDelete={canDelete} posts={posts} />
             </section>
         </>
     )
 }
-
-PostListing.defaultProps = {
-    isAdmin: null,
-};
 
 export default PostListing;
