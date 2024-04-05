@@ -8,10 +8,7 @@ const path = require('path')
 const validator = require('validator');
 
 // define image storing format
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'src/images/')
-    },
+const storage = multer.memoryStorage({
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
         cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname))
@@ -30,7 +27,8 @@ const postSchema = new mongoose.Schema({
     price: Number,
     location: String,
     imageName: String,
-    username: String
+    username: String,
+    imageData: Buffer
 });
 
 const messageSchema = new mongoose.Schema({
@@ -93,6 +91,7 @@ app.post('/api/create-post', upload.single('image'), async (req, res) => {
         const { title, desc, category, price, location, username } = req.body;
         const imageFile = req.file; // Access uploaded file details
         const imageName = imageFile.filename;
+        const imageData = imageFile.buffer;
         const regex = /^\s{1,}$/;
 
         // Prevent empty posts
@@ -104,7 +103,7 @@ app.post('/api/create-post', upload.single('image'), async (req, res) => {
         }
         // Create post
         else {
-            const newDoc = await Post.create({ title: title, desc: desc, category: category, price: price, location: location, imageName: imageName, username: username });
+            const newDoc = await Post.create({ title: title, desc: desc, category: category, price: price, location: location, imageName: imageName, username: username, imageData: imageData });
             res.status(201).json(newDoc);
         }
     }
@@ -154,6 +153,24 @@ app.post('/api/delete-post', async (req, res) => {
         res.status(500).send(err);
     }
 })
+
+// getting images
+app.get('/api/image/:postId', async (req, res) => {
+    try {
+        const postId = req.params.postId;
+
+        // Find the post by ID
+        const post = await Post.findById(postId);
+        if (!post) {
+            return res.status(404).send('Post not found');
+        }
+
+        // Send the image data as a response
+        res.send(post.imageData);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
 
 const userRoutes = require('./routes/userRoutes')
 

@@ -120,7 +120,7 @@ function PostListing({ isAdmin, handleDeletion }) {
                         <p>
                             ${post.price}<br></br>
                             Location: {post.location}<br></br>
-                            <img src={require(`../images/${post.imageName}`)} alt='post-image' className='image'/><br></br>
+                            <img src={`http://localhost:3001/api/image/${post._id}`} alt='post-image' className='image'/><br></br>
                             {post.desc}
                         </p>
                     </article>        
