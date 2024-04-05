@@ -17,7 +17,7 @@ const storage = multer.memoryStorage({
 
 const upload = multer({ storage: storage })
 
-mongoose.connect('mongodb://localhost:27017/projectDB')
+mongoose.connect(process.env.MONGODB || 'mongodb://localhost:27017/projectDB')
     .catch(error => console.error(error));
 
 const postSchema = new mongoose.Schema({
