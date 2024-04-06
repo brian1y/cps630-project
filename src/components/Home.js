@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useAuthContext } from "../hooks/useAuthContext";
 import Loading from './Loading';
 import '../css/Home.css';
+import { Link } from 'react-router-dom';
 
 function Home() {
     const { user } = useAuthContext();
@@ -67,7 +68,7 @@ function Home() {
             <>
                 <ul className='shadowBox'>
                     <li>
-                        <a href='/listing'>Post Listing</a>
+                        <Link to="/listing">Post Listing</Link>
                     </li>
                 </ul>
             </>

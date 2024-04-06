@@ -33,7 +33,7 @@ function PostListing({ isAdmin, handleDeletion }) {
         setFirst(null);
         
         // Fetch posts
-        fetch('http://localhost:3001/api/get-posts', {
+        fetch('https://cps630-project-api.onrender.com/api/get-posts', {
             method: 'POST',
             headers: {
                 'Content-type': "application/json"
@@ -50,7 +50,7 @@ function PostListing({ isAdmin, handleDeletion }) {
         const filter = {category: category, query: textSearch};
         
         // Fetch posts
-        fetch('http://localhost:3001/api/get-posts', {
+        fetch('https://cps630-project-api.onrender.com/api/get-posts', {
             method: 'POST',
             headers: {
                 'Content-type': "application/json"

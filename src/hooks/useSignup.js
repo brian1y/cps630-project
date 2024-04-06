@@ -10,7 +10,7 @@ export const useSignup = () => {
         setIsLoading(true)
         setError(null)
 
-        const response = await fetch('http://localhost:3001/api/user/signup', {
+        const response = await fetch('https://cps630-project.onrender.com/api/user/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

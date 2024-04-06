@@ -45,7 +45,7 @@ function PostAd() {
         formData.append('image', file);
         formData.append('username', user.username);
 
-        fetch('http://localhost:3001/api/create-post', {
+        fetch('https://cps630-project-api.onrender.com/api/create-post', {
             method: 'POST',
             body: formData
         })
