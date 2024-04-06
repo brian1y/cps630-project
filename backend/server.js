@@ -18,7 +18,7 @@ const storage = multer.memoryStorage({
 
 const upload = multer({ storage: storage })
 
-mongoose.connect('mongodb+srv://brian:test1234@cps630project.xfm2vq5.mongodb.net/')
+mongoose.connect(process.env.MONGO_URI)
     .catch(error => console.error(error));
 
 const postSchema = new mongoose.Schema({
