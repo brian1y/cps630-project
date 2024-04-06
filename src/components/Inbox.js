@@ -12,7 +12,7 @@ function Inbox() {
     const messagesOnload = () => {
         const filter = { user: user };
 
-        fetch('http://localhost:3001/api/get-messages', {
+        fetch('https://cps630-project.onrender.com/api/get-messages', {
             method: 'POST',
             headers: {
                 'Content-type': "application/json"

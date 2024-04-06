@@ -38,7 +38,7 @@ function SendMessage() {
         const newMessage = { to, message, from, timestamp };
 
         // Send newPost to server
-        fetch('https://cps630-project.onrender.com/api/send-message', {
+        fetch('https://cps630-project-api.onrender.com/api/send-message', {
             method: 'POST',
             headers: {
                 'Content-type': "application/json"

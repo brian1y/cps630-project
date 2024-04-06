@@ -1,6 +1,7 @@
 import '../css/Navbar.css'
 import { useLogout } from '../hooks/useLogout';
 import { useAuthContext } from '../hooks/useAuthContext';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
     const { logout } = useLogout()
@@ -13,7 +14,7 @@ function Navbar() {
     return (
         <header id='navbar'>
             <div>
-                <a href='/'>SiteName</a>
+                <Link to='/'>SiteName</Link>
             </div>
             {user && (
                 <div>
@@ -23,7 +24,7 @@ function Navbar() {
             )}
             {!user && (
                 <div>
-                    <a href='/login'>Login/Signup</a>
+                    <Link to='/login'>Login/Signup</Link>
                 </div>
             )}
         </header>

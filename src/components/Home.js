@@ -40,19 +40,19 @@ function Home() {
                         <nav>
                             <ul>
                                 <li>
-                                    <a href='/post-ad'>Post Ad</a>
+                                    <Link to='/post-ad'>Post Ad</Link>
                                 </li>
                                 <li>
-                                    <a href='/listing'>Post Listing</a>
+                                    <Link to='/listing'>Post Listing</Link>
                                 </li>
                                 <li>
-                                    <a href='/admin'>Admin Page</a>
+                                    <Link to='/admin'>Admin Page</Link>
                                 </li>
                                 <li>
-                                    <a href='/send-message'>Send Message</a>
+                                    <Link to='/send-message'>Send Message</Link>
                                 </li>
                                 <li>
-                                    <a href='/inbox'>Inbox</a>
+                                    <Link to='/inbox'>Inbox</Link>
                                 </li>
                             </ul>
                         </nav>
