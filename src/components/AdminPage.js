@@ -44,7 +44,7 @@ function AdminPage() {
                 const remove_id = { _id: id }
 
                 // Delete post
-                fetch('https://cps630-project.onrender.com/api/delete-post', {
+                fetch('https://cps630-project-api.onrender.com/api/delete-post', {
                     method: 'POST',
                     headers: {
                         'Content-type': "application/json"
